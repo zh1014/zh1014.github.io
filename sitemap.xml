@@ -3,7 +3,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zh1014.github.io/post/2018/08/hello/</loc>
+    <lastmod>2018-08-25T15:43:48+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zh1014.github.io/categories/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zh1014.github.io/post/</loc>
+    <lastmod>2018-08-25T15:43:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -16,6 +30,7 @@
   
   <url>
     <loc>https://zh1014.github.io/</loc>
+    <lastmod>2018-08-25T15:43:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
