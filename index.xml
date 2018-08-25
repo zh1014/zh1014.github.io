@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>张豪&#39;s blog</title>
+    <title>张豪blog</title>
     <link>https://zh1014.github.io/</link>
-    <description>Recent content on 张豪&#39;s blog</description>
+    <description>Recent content on 张豪blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Thu, 31 Aug 2017 15:43:48 +0800</lastBuildDate>
     
 	<atom:link href="https://zh1014.github.io/index.xml" rel="self" type="application/rss+xml" />
