@@ -6,37 +6,9 @@
     <description>Recent content in Tags on 张豪blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 23 Aug 2017 18:03:09 +0800</lastBuildDate>
     
 	<atom:link href="https://zh1014.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Preview</title>
-      <link>https://zh1014.github.io/tags/preview/</link>
-      <pubDate>Wed, 23 Aug 2017 18:03:09 +0800</pubDate>
-      
-      <guid>https://zh1014.github.io/tags/preview/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tag-3</title>
-      <link>https://zh1014.github.io/tags/tag-3/</link>
-      <pubDate>Wed, 23 Aug 2017 18:03:09 +0800</pubDate>
-      
-      <guid>https://zh1014.github.io/tags/tag-3/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Theme preview</title>
-      <link>https://zh1014.github.io/tags/theme-preview/</link>
-      <pubDate>Wed, 23 Aug 2017 18:03:09 +0800</pubDate>
-      
-      <guid>https://zh1014.github.io/tags/theme-preview/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>
