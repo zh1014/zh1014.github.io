@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>分类 - 张豪blog</title>
+  <title>Git阅读笔记 - 张豪blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,8 @@
 
 
 <meta name="author" content="张豪" />
-  <meta name="description" content="zhanghao&#39;s blog" />
+  <meta name="description" content="状态 git本地状态图: 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png 个人笔记（散乱） git add 添加内容到下一次提交中（我想就是指加到staged中）：可以是untrack-&amp;gt;s" />
+
   <meta name="keywords" content="Hugo, theme, even" />
 
 
@@ -28,9 +29,7 @@
 <meta name="generator" content="Hugo 0.47.1" />
 
 
-<link rel="canonical" href="https://zh1014.github.io/categories/" />
-<link href="https://zh1014.github.io/categories/index.xml" rel="alternate" type="application/rss+xml" title="张豪blog" />
-  <link href="https://zh1014.github.io/categories/index.xml" rel="feed" type="application/rss+xml" title="张豪blog" />
+<link rel="canonical" href="https://zh1014.github.io/post/2018/08/git%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -50,16 +49,25 @@
 
 
 
-<meta property="og:title" content="Categories" />
-<meta property="og:description" content="zhanghao&#39;s blog" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zh1014.github.io/categories/" />
-<meta itemprop="name" content="Categories">
-<meta itemprop="description" content="zhanghao&#39;s blog">
+<meta property="og:title" content="Git阅读笔记" />
+<meta property="og:description" content="状态 git本地状态图: 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png 个人笔记（散乱） git add 添加内容到下一次提交中（我想就是指加到staged中）：可以是untrack-&gt;s" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zh1014.github.io/post/2018/08/git%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" /><meta property="article:published_time" content="2018-08-28T19:33:59&#43;08:00"/>
+<meta property="article:modified_time" content="2018-08-28T19:33:59&#43;08:00"/>
+<meta itemprop="name" content="Git阅读笔记">
+<meta itemprop="description" content="状态 git本地状态图: 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png 个人笔记（散乱） git add 添加内容到下一次提交中（我想就是指加到staged中）：可以是untrack-&gt;s">
 
+
+<meta itemprop="datePublished" content="2018-08-28T19:33:59&#43;08:00" />
+<meta itemprop="dateModified" content="2018-08-28T19:33:59&#43;08:00" />
+<meta itemprop="wordCount" content="556">
+
+
+
+<meta itemprop="keywords" content="Git," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Categories"/>
-<meta name="twitter:description" content="zhanghao&#39;s blog"/>
+<meta name="twitter:title" content="Git阅读笔记"/>
+<meta name="twitter:description" content="状态 git本地状态图: 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png 个人笔记（散乱） git add 添加内容到下一次提交中（我想就是指加到staged中）：可以是untrack-&gt;s"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -119,32 +127,143 @@
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
-          
-  
-    <div class="categories">
-      <div class="categories-title">
-        
-          共计 2 个分类
-        
-      </div>
-      <div class="categories-tags">
-        
-          <a class="category-link" href="/categories/%E5%A5%B3%E7%A5%9E/">
-            女神
-            <span class="category-count">1</span>
-          </a>
-        
-          <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7/">
-            工具
-            <span class="category-count">1</span>
-          </a>
-        
-      </div>
-    </div>
-  
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Git阅读笔记</h1>
 
+      <div class="post-meta">
+        <span class="post-time"> 2018-08-28 </span>
+        <div class="post-category">
+            
+              <a href="/categories/%E5%B7%A5%E5%85%B7/"> 工具 </a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#状态">状态</a></li>
+<li><a href="#个人笔记-散乱">个人笔记（散乱）</a></li>
+<li><a href="#分支">分支</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h3 id="状态">状态</h3>
+
+<p>git本地状态图:
+<img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/git本地状态图.png" alt="img" title="git本地状态图" /></p>
+
+<p>生命周期 <a href="https://git-scm.com/book/en/v2/images/lifecycle.png">https://git-scm.com/book/en/v2/images/lifecycle.png</a></p>
+
+<h3 id="个人笔记-散乱">个人笔记（散乱）</h3>
+
+<p><strong>git add</strong></p>
+
+<p>添加内容到下一次提交中（我想就是指加到staged中）：可以是untrack-&gt;staged 或 modified -&gt; staged。另外，还能用于合并时把有冲突的文件标记为已解决状态等</p>
+
+<p><strong>git status</strong></p>
+
+<p>Changes to be committed：已暂存状态</p>
+
+<p>Changes not staged for commit ：已跟踪文件的内容发生了变化</p>
+
+<p><strong>git rm</strong></p>
+
+<p>（不在暂存区：）首先我们知道发生任何modify都应该用git add来告诉暂存区。如果直接rm已跟踪文件，同样是一个modify，不同的是这个情况下modify却不能用git add来告诉git发生了什么变化，于是有了git rm。git rm 才是删除的标准操作，而不是rm；但用了rm，可以再用一次git rm  进行纠正</p>
+
+<p>（暂存区：）如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f</p>
+
+<h3 id="分支">分支</h3>
+
+<ul>
+<li>git branch &lt;分支&gt;      创建分支</li>
+<li>git branch -d &lt;分支&gt;   删除分支</li>
+</ul>
+
+<p>相关命令：</p>
+
+<p>git checkout &lt;分支&gt;   切换到此分支，-b则创建并切换过去</p>
+
+<pre><code>git checkout -b &lt;分支&gt; 
+等于下面组合：
+git branch &lt;分支&gt;  
+git checkout &lt;分支&gt;
+</code></pre>
+
+<p>git merge &lt;分支&gt;  合并此分支与当前分支</p>
+
+<ul>
+<li>git branch 所有分支列表，-v可列出最后一次提交，&ndash;merged 与&ndash;no-merged过滤这个列表中已经合并或尚未合并到当前分支的分支</li>
+</ul>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">张豪</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-08-28</span>
+  </p>
+  
+  
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/git/">Git</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/2018/08/womangod/">
+            <span class="next-text nav-default">女神照片</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
         </div>
         
+  
+
+  
 
       </div>
     </main>

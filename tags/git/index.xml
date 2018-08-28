@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>张豪blog</title>
-    <link>https://zh1014.github.io/</link>
-    <description>Recent content on 张豪blog</description>
+    <title>Git on 张豪blog</title>
+    <link>https://zh1014.github.io/tags/git/</link>
+    <description>Recent content in Git on 张豪blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 28 Aug 2018 19:33:59 +0800</lastBuildDate>
     
-	<atom:link href="https://zh1014.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://zh1014.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://zh1014.github.io/post/2018/08/git%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</guid>
       <description>状态 git本地状态图: 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png 个人笔记（散乱） git add 添加内容到下一次提交中（我想就是指加到staged中）：可以是untrack-&amp;gt;s</description>
-    </item>
-    
-    <item>
-      <title>女神照片</title>
-      <link>https://zh1014.github.io/post/2018/08/womangod/</link>
-      <pubDate>Sat, 25 Aug 2018 15:43:48 +0800</pubDate>
-      
-      <guid>https://zh1014.github.io/post/2018/08/womangod/</guid>
-      <description>女神照片</description>
     </item>
     
   </channel>
