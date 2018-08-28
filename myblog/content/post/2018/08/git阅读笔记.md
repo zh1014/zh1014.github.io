@@ -2,6 +2,8 @@
 title: "Git阅读笔记"
 date: 2018-08-28T19:33:59+08:00
 draft: true
+tags: ["Git"]
+categories: ["工具"]
 ---
 
 ### 状态
