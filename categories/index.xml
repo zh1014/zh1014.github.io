@@ -10,5 +10,14 @@
 	<atom:link href="https://zh1014.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>女神</title>
+      <link>https://zh1014.github.io/categories/%E5%A5%B3%E7%A5%9E/</link>
+      <pubDate>Sat, 25 Aug 2018 15:43:48 +0800</pubDate>
+      
+      <guid>https://zh1014.github.io/categories/%E5%A5%B3%E7%A5%9E/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
