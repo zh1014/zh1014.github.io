@@ -9,6 +9,7 @@ categories: ["工具"]
 ### 状态
 git本地状态图:
 ![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/git本地状态图.png "git本地状态图")
+实际不止staged可以git rm ，为了不让图显得太乱而省略。
 
 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png
 
