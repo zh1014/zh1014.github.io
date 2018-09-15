@@ -144,7 +144,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
 
   [params.social]                                         # 社交链接
     a-email = "964701944@qq.com"
-    b-stack-overflow = "http://localhost:1313"
+    b-stack-overflow = "https://stackoverflow.com/users/10368009/zhanghao"
     c-twitter = "http://localhost:1313"
     d-facebook = "http://localhost:1313"
     e-linkedin = "http://localhost:1313"

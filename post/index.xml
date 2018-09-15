@@ -17,16 +17,7 @@
       <pubDate>Tue, 28 Aug 2018 19:33:59 +0800</pubDate>
       
       <guid>https://zh1014.github.io/post/2018/08/git%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</guid>
-      <description>状态 git本地状态图: 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png 个人笔记（散乱） git add 添加内容到下一次提交中（我想就是指加到staged中）：可以是untrack-&amp;gt;s</description>
-    </item>
-    
-    <item>
-      <title>女神照片</title>
-      <link>https://zh1014.github.io/post/2018/08/womangod/</link>
-      <pubDate>Sat, 25 Aug 2018 15:43:48 +0800</pubDate>
-      
-      <guid>https://zh1014.github.io/post/2018/08/womangod/</guid>
-      <description>女神照片</description>
+      <description>状态 git本地状态图: 实际不止staged可以git rm ，为了不让图显得太乱而省略。 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png 个人笔记（散乱） git add 添加内容到下一次提交中（我想</description>
     </item>
     
   </channel>
