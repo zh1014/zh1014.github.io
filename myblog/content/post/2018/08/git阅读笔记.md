@@ -37,12 +37,9 @@ Changes not staged for commit ：已跟踪文件的内容发生了变化
 相关命令：
 
 git checkout <分支>   切换到此分支，-b则创建并切换过去
-```
-git checkout -b <分支> 
-等于下面组合：
-git branch <分支>  
-git checkout <分支>
-```
+
+git checkout -b <分支>  等于组合： git branch <分支> + git checkout <分支>
+
 git merge <分支>  合并此分支与当前分支
 
-- git branch 所有分支列表，-v可列出最后一次提交，--merged 与--no-merged过滤这个列表中已经合并或尚未合并到当前分支的分支
+git branch 列出所有分支列表，-v可列出最后一次提交，--merged 与--no-merged过滤这个列表中已经合并或尚未合并到当前分支的分支
