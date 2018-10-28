@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zh1014.github.io/post/2018/08/go%E4%BD%BF%E7%94%A8form-data%E6%A0%BC%E5%BC%8F%E6%8E%A5%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2018-10-28T15:56:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zh1014.github.io/post/2018/08/git%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2018-08-28T19:33:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -23,8 +30,22 @@
   </url>
   
   <url>
+    <loc>https://zh1014.github.io/categories/go/</loc>
+    <lastmod>2018-10-28T15:56:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zh1014.github.io/tags/go/</loc>
+    <lastmod>2018-10-28T15:56:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://zh1014.github.io/post/</loc>
-    <lastmod>2018-08-28T19:33:59+08:00</lastmod>
+    <lastmod>2018-10-28T15:56:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -32,6 +53,13 @@
   <url>
     <loc>https://zh1014.github.io/tags/</loc>
     <lastmod>2018-08-28T19:33:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zh1014.github.io/tags/web/</loc>
+    <lastmod>2018-10-28T15:56:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -45,7 +73,7 @@
   
   <url>
     <loc>https://zh1014.github.io/</loc>
-    <lastmod>2018-08-28T19:33:59+08:00</lastmod>
+    <lastmod>2018-10-28T15:56:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

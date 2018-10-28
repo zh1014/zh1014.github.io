@@ -1,12 +1,12 @@
 ---
-title: "Git阅读笔记"
-date: 2018-08-28T19:33:59+08:00
-draft: true
-tags: ["Git"]
-categories: ["工具"]
+title: "Go使用form Data格式接数据"
+date: 2018-10-28T15:56:25+08:00
+draft: false
+tags: ["go","web"]
+categories: ["go"]
 ---
 
-### go使用multipart/form-data遇到的问题
+`go使用multipart/form-data接受请求数据遇到的问题`
 
 http使用multipart/form-data类型传输数据，需要golang使用FormValue()或者PostFormValue()方法来获取。
 
