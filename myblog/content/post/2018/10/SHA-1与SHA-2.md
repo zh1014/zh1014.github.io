@@ -1,7 +1,7 @@
 ---
 title: "SHA 1与SHA 2"
 date: 2018-10-28T16:58:39+08:00
-draft: true
+draft: false
 tags: ["hash"]
 categories: ["工具"]
 ---
