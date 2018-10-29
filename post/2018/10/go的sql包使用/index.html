@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Go的database/sql包使用笔记 - 张豪blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ahow" />
+  <meta name="description" content="连接 sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unk" />
+
+  <meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.47.1" />
+
+
+<link rel="canonical" href="https://zh1014.github.io/post/2018/10/go%E7%9A%84sql%E5%8C%85%E4%BD%BF%E7%94%A8/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Go的database/sql包使用笔记" />
+<meta property="og:description" content="连接 sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unk" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zh1014.github.io/post/2018/10/go%E7%9A%84sql%E5%8C%85%E4%BD%BF%E7%94%A8/" /><meta property="article:published_time" content="2018-10-30T00:00:36&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-30T00:00:36&#43;08:00"/>
+<meta itemprop="name" content="Go的database/sql包使用笔记">
+<meta itemprop="description" content="连接 sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unk">
+
+
+<meta itemprop="datePublished" content="2018-10-30T00:00:36&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-30T00:00:36&#43;08:00" />
+<meta itemprop="wordCount" content="1913">
+
+
+
+<meta itemprop="keywords" content="go,database," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go的database/sql包使用笔记"/>
+<meta name="twitter:description" content="连接 sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unk"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">ahow</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">ahow</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Go的database/sql包使用笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-10-30 </span>
+        <div class="post-category">
+            
+              <a href="/categories/go/"> go </a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#连接"><strong>连接</strong></a></li>
+<li><a href="#检索结果集"><strong>检索结果集</strong></a></li>
+<li><a href="#异常处理"><strong>异常处理</strong></a></li>
+<li><a href="#对付空值"><strong>对付空值</strong></a></li>
+<li><a href="#rawbytes"><strong>RawBytes</strong></a></li>
+<li><a href="#db-exec"><strong>db.Exec()</strong></a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="连接"><strong>连接</strong></h1>
+
+<p>sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unknown database）</p>
+
+<h1 id="检索结果集"><strong>检索结果集</strong></h1>
+
+<p>检索结果的常用操作：
+1. 执行返回rows的查询（query）
+2. 准备（prepare）以得到一个statement来重复地使用，多次地执行它，最后销毁它。
+3. 免去准备（prepare）步骤，执行一个一次性的语句。
+4. 执行一个返回单排（single row）的查询。</p>
+
+<p>go中的database/sql的函数命名是有意义的。名字含query的函数是用来查询的，即使结果为空，也会返回rows。不返回rows的语句应该使用Exec()。</p>
+
+<p><code>遍历：</code></p>
+
+<p>几个容易出错的地方：</p>
+
+<ul>
+<li>rows.Next()循环结束后应该检查错误：err = rows.Err()。循环体中出现错误时你应该知道。</li>
+<li>只要rows处于打开状态，那么该rows的连接就是繁忙状态的，也就不能用于其他查询。意味着该连接在连接池中不可用。使用rows.Next()读完了rows之后，再读的话就会得到一个EOF错误，并且会自动为你调用rows.Close()。但是如果你因为某些原因，中途退出循环，rows没有自动关闭（只有读到错误才会为你自动关闭），那么连接就会一直打开。很容易耗尽资源。</li>
+<li>rows.Close()是无害操作，可以多次调用。关闭之前应该执行err = rows.Err() ，如果没有错误，只调用rows.Close（），以避免运行时出现混乱。</li>
+<li>你应该总是调用defer rows.Close()，尽管你在循环结束后显式调用了rows.Close()。这不是个坏主意。</li>
+<li>如果你在循环内反复的进行查询，那么就不要使用defer了。因为defer的内容要等到函数结束才执行，就会缓慢地堆积在内存。你应该在处理完一个结果集后立即调用rows.Close()，而不是用defer。</li>
+</ul>
+
+<p><code>Scan()的工作方式：</code></p>
+
+<p>在使用Scan的时候，go已经做好了类型转换，你不要重复做了。
+go会尽可能的做类型转换，比如一个int类型或者Time类型的赋值给一个string。但是像nil这样的空无法通过scan()赋值给一个string，这时候就会返回一个err了。</p>
+
+<p><code>Prepare查询：</code></p>
+
+<p>当一个查询语句会用到多次的时候，你最好使用db.Prepare()方法</p>
+
+<p><code>QueryRow()：</code></p>
+
+<p>当你只想获取一行数据的时候用QueryRow是比较方便的，因为这个时候没有Rows需要你去关闭。</p>
+
+<h1 id="异常处理"><strong>异常处理</strong></h1>
+
+<p><code>rows.Next()</code> 需要检查遍历是否正常退出。</p>
+
+<pre><code class="language-go">for rows.Next() {
+	// ...
+}
+if err = rows.Err(); err != nil {
+	// handle the error here
+}
+</code></pre>
+
+<p><code>rows.Close()</code> 检查rows是否正常关闭，若没有就打个日志吧。</p>
+
+<pre><code class="language-go">for rows.Next() {
+	// ...
+	break; // whoops, rows is not closed! memory leak...
+}
+// do the usual &quot;if err = rows.Err()&quot; [omitted here]...
+// it's always safe to [re?]close here:
+if err = rows.Close(); err != nil {
+	// but what should we do if there's an error?
+	log.Println(err)
+}
+</code></pre>
+
+<p><code>db.QueryRow()</code> 当没有查到结果进行scan会返回sql.ErrNoRows</p>
+
+<pre><code class="language-go">var name string
+err = db.QueryRow(&quot;select name from users where id = ?&quot;, 1).Scan(&amp;name)
+if err != nil {
+	if err == sql.ErrNoRows {
+		// there were no rows, but otherwise no error occurred
+	} else {
+		log.Fatal(err)
+	}
+}
+fmt.Println(name)
+</code></pre>
+
+<p>检查错误类型的时候，driver层可能定义了错误。调用driver层常量来知晓错误类型。</p>
+
+<pre><code class="language-go">if driverErr, ok := err.(*mysql.MySQLError); ok {
+	if driverErr.Number == mysqlerr.ER_ACCESS_DENIED_ERROR {
+		// Handle the permission-denied error
+	}
+}
+</code></pre>
+
+<p>最后，sql.DB实现了一个connection的管理池，所以当当前连接出现问题，database/sql层会自动换一个连接重试。我们完全感觉不到。</p>
+
+<h1 id="对付空值"><strong>对付空值</strong></h1>
+
+<p>1.最好是避免数据库中的空值，通过设置<code>默认值</code>或者<code>NOT NULL</code>。</p>
+
+<p>2.使用sql包内定义的可为空的类型：<code>sql.NullString</code> <code>sql.NullInt64</code> <code>sql.NullFloat64</code> <code>sql.NullBool</code> 。仅此4种，虽然只有四种，但像int32 uint8 等整型都是可以用NullInt64 ，database/sql层会做转换。</p>
+
+<pre><code class="language-go">for rows.Next() {
+	var s sql.NullString
+	err := rows.Scan(&amp;s)
+	// check err
+	if s.Valid {
+	   // use s.String
+	} else {
+	   // NULL value
+	}
+}
+</code></pre>
+
+<p>也可以自己定义类型，模仿NullString实现Scanner接口即可。</p>
+
+<p>3.使用<code>COALESCE()</code>函数。</p>
+
+<pre><code class="language-go">rows, err := db.Query(`
+	SELECT
+		name,
+		COALESCE(other_field, '') as other_field
+	WHERE id = ?
+`, 42)
+
+for rows.Next() {
+	err := rows.Scan(&amp;name, &amp;otherField)
+	// ..
+	// If `other_field` was NULL, `otherField` is now an empty string. This works with other data types as well.
+}
+</code></pre>
+
+<p>COALESCE()会返回第一个不为空的参数，这样使得当other_field为空时，返回空字符串。</p>
+
+<h1 id="rawbytes"><strong>RawBytes</strong></h1>
+
+<p>当不知道列的个数和或者类型的时候，用sql.RawBytes</p>
+
+<pre><code class="language-go">cols, err := rows.Columns() // Remember to check err afterwards
+vals := make([]interface{}, len(cols))
+for i, _ := range cols {
+	vals[i] = new(sql.RawBytes)
+}
+for rows.Next() {
+	err = rows.Scan(vals...)
+	// Now you can check each element of vals for nil-ness,
+	// and you can use type introspection and type assertions
+	// to fetch the column into a typed variable.
+}
+</code></pre>
+
+<h1 id="db-exec"><strong>db.Exec()</strong></h1>
+
+<p>db.Exec() 返回一个result 与一个error，当执行DELETE操作的时候，WHERE 条件没有符合的情况下，返回的error为nil，修改的行数为0。.因此在需要的时候我们可以使用result.RowsAffected()查看到修改的行数。</p>
+
+<p>此外，UPDATE的时候，若WHERE条件没有找到或者更新后与之前相同，同样返回的error为nil，修改的行数为0。</p>
+
+<p><a href="http://go-database-sql.org/index.html">原文</a></p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">ahow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-10-30</span>
+  </p>
+  
+  
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/go/">go</a>
+          
+          <a href="/tags/database/">database</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/2018/10/go%E7%9A%84interface%E7%AC%94%E8%AE%B0/">
+            <span class="next-text nav-default">Go的interface{}笔记</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="964701944@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10368009/zhanghao" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zh1014" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/zhang-hao-65-23-68/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zh1014.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2018-8-24 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">ahow</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

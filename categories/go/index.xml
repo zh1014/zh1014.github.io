@@ -6,10 +6,19 @@
     <description>Recent content in Go on 张豪blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 29 Oct 2018 19:19:19 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 30 Oct 2018 00:00:36 +0800</lastBuildDate>
     
 	<atom:link href="https://zh1014.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go的database/sql包使用笔记</title>
+      <link>https://zh1014.github.io/post/2018/10/go%E7%9A%84sql%E5%8C%85%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 30 Oct 2018 00:00:36 +0800</pubDate>
+      
+      <guid>https://zh1014.github.io/post/2018/10/go%E7%9A%84sql%E5%8C%85%E4%BD%BF%E7%94%A8/</guid>
+      <description>连接 sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unk</description>
+    </item>
     
     <item>
       <title>Go的interface{}笔记</title>
