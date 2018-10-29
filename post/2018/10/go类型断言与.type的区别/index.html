@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Go · 张豪blog</title>
+  <title>Go类型断言与.(type)的区别 - 张豪blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,8 @@
 
 
 <meta name="author" content="ahow" />
-  <meta name="description" content="zhanghao&#39;s blog" />
+  <meta name="description" content="类型断言 // 当断言正确，效果相当于直接赋值 func main() { var i interface{} = &amp;quot;hello&amp;quot; s, _ := i.(string) println(s) fmt.Println(reflect.TypeOf(s)) } 输出： hello string // 当断言不正确，效果相当于是在声明变量，声明类型就是右边的类" />
+
   <meta name="keywords" content="Hugo, theme, even" />
 
 
@@ -28,9 +29,7 @@
 <meta name="generator" content="Hugo 0.47.1" />
 
 
-<link rel="canonical" href="https://zh1014.github.io/tags/go/" />
-<link href="https://zh1014.github.io/tags/go/index.xml" rel="alternate" type="application/rss+xml" title="张豪blog" />
-  <link href="https://zh1014.github.io/tags/go/index.xml" rel="feed" type="application/rss+xml" title="张豪blog" />
+<link rel="canonical" href="https://zh1014.github.io/post/2018/10/go%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E4%B8%8E.type%E7%9A%84%E5%8C%BA%E5%88%AB/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -50,17 +49,25 @@
 
 
 
-<meta property="og:title" content="Go" />
-<meta property="og:description" content="zhanghao&#39;s blog" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zh1014.github.io/tags/go/" />
-<meta property="og:updated_time" content="2018-10-29T19:19:19&#43;08:00"/>
-<meta itemprop="name" content="Go">
-<meta itemprop="description" content="zhanghao&#39;s blog">
+<meta property="og:title" content="Go类型断言与.(type)的区别" />
+<meta property="og:description" content="类型断言 // 当断言正确，效果相当于直接赋值 func main() { var i interface{} = &quot;hello&quot; s, _ := i.(string) println(s) fmt.Println(reflect.TypeOf(s)) } 输出： hello string // 当断言不正确，效果相当于是在声明变量，声明类型就是右边的类" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zh1014.github.io/post/2018/10/go%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E4%B8%8E.type%E7%9A%84%E5%8C%BA%E5%88%AB/" /><meta property="article:published_time" content="2018-10-29T19:04:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-29T19:04:00&#43;08:00"/>
+<meta itemprop="name" content="Go类型断言与.(type)的区别">
+<meta itemprop="description" content="类型断言 // 当断言正确，效果相当于直接赋值 func main() { var i interface{} = &quot;hello&quot; s, _ := i.(string) println(s) fmt.Println(reflect.TypeOf(s)) } 输出： hello string // 当断言不正确，效果相当于是在声明变量，声明类型就是右边的类">
 
+
+<meta itemprop="datePublished" content="2018-10-29T19:04:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-29T19:04:00&#43;08:00" />
+<meta itemprop="wordCount" content="297">
+
+
+
+<meta itemprop="keywords" content="go," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Go"/>
-<meta name="twitter:description" content="zhanghao&#39;s blog"/>
+<meta name="twitter:title" content="Go类型断言与.(type)的区别"/>
+<meta name="twitter:description" content="类型断言 // 当断言正确，效果相当于直接赋值 func main() { var i interface{} = &quot;hello&quot; s, _ := i.(string) println(s) fmt.Println(reflect.TypeOf(s)) } 输出： hello string // 当断言不正确，效果相当于是在声明变量，声明类型就是右边的类"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -120,71 +127,143 @@
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
-          
-
-<section id="archive" class="archive">
-  
+          <article class="post">
     
-      <div class="archive-title tag">
-        <h2 class="archive-name">Go</h2>
+    <header class="post-header">
+      <h1 class="post-title">Go类型断言与.(type)的区别</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-10-29 </span>
+        <div class="post-category">
+            
+              <a href="/categories/go/"> go </a>
+            
+          </div>
+        
+        
       </div>
+    </header>
+
     
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
   
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
 
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-10-29
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/2018/10/go%E7%9A%84interface%E7%AC%94%E8%AE%B0/" class="archive-post-link">
-          Go的interface{}笔记
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-10-29
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/2018/10/go%E4%B8%AD%E7%9A%84%E5%8F%8D%E5%BC%95%E5%8F%B7%E5%8D%95%E5%BC%95%E5%8F%B7%E4%B8%8E%E5%8F%8C%E5%BC%95%E5%8F%B7/" class="archive-post-link">
-          Go中的反引号、单引号与双引号
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-10-29
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/2018/10/go%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E4%B8%8E.type%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-post-link">
-          Go类型断言与.(type)的区别
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-10-28
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/2018/10/go%E4%BD%BF%E7%94%A8form-data%E6%A0%BC%E5%BC%8F%E6%8E%A5%E6%95%B0%E6%8D%AE/" class="archive-post-link">
-          Go使用form Data格式接数据
-        </a>
-      </span>
-    </div>
-  
-</section>
+    
+    
 
-<nav class="pagination">
-  
-  
-</nav>
+    
+    <div class="post-content">
+      <p><code>类型断言</code></p>
 
+<pre><code class="language-go">// 当断言正确，效果相当于直接赋值
+func main() {
+	var i interface{} = &quot;hello&quot;
+	s, _ := i.(string)
+	println(s)
+	fmt.Println(reflect.TypeOf(s))
+}
+
+输出：
+hello
+string
+</code></pre>
+
+<pre><code class="language-go">// 当断言不正确，效果相当于是在声明变量，声明类型就是右边的类型
+func main() {
+	var i interface{} = &quot;hello&quot;
+	s, _ := i.(int)
+	println(s)
+	fmt.Println(reflect.TypeOf(s))
+}
+
+输出：
+0
+int
+</code></pre>
+
+<p><code>使用.(type)</code> 不是类型断言，没有成功不成功，相当于直接赋值。</p>
+
+<pre><code class="language-go">func main() {
+	var i interface{} = 3
+	switch x := i.(type) { // .(type)只能用于switch结构中
+	case int:
+		println(x)
+		println(i)
+		fmt.Println(&quot;typeof x:&quot;, reflect.TypeOf(x))
+		fmt.Println(&quot;typeof i:&quot;, reflect.TypeOf(i))
+		fmt.Println(x)
+		fmt.Println(i)
+	default:
+		fmt.Println(&quot;default&quot;)
+	}
+}
+
+输出：
+3
+(0x109d300,0xc420084008)
+typeof x: int
+typeof i: int // interface{}的当前类型
+3
+3
+</code></pre>
+
+<p>我们知道interface{}由两部分组成。正如用println(i)打印结果，一个是类型，一个实际值有关系。
+拿interface{}的类型去比选择符合的case，然后x相当于被直接赋值。</p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">ahow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-10-29</span>
+  </p>
+  
+  
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/go/">go</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/2018/10/go%E4%B8%AD%E7%9A%84%E5%8F%8D%E5%BC%95%E5%8F%B7%E5%8D%95%E5%BC%95%E5%8F%B7%E4%B8%8E%E5%8F%8C%E5%BC%95%E5%8F%B7/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Go中的反引号、单引号与双引号</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/post/2018/10/sha-1%E4%B8%8Esha-2/">
+            <span class="next-text nav-default">SHA 1与SHA 2</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
         </div>
         
+  
+
+  
 
       </div>
     </main>

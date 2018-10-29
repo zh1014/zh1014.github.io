@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>SHA 1与SHA 2 - 张豪blog</title>
+  <title>Go的interface{}笔记 - 张豪blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="ahow" />
-  <meta name="description" content="什么是哈希 我的理解哈希是一种映射，把各种各样的输入（字符串甚至文件）映射成一串尽可能短的字符串。 哈希的特点： 不可逆 不同输入哈希的结果唯一（不" />
+  <meta name="description" content="interface{}组成 interface{}由两部分组成：动态类型&#43;实际值。 func main() { var sp *string var i interface{} i = sp println(sp == nil) println(i == nil) // 类型不为空，为*str" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -29,7 +29,7 @@
 <meta name="generator" content="Hugo 0.47.1" />
 
 
-<link rel="canonical" href="https://zh1014.github.io/post/2018/10/sha-1%E4%B8%8Esha-2/" />
+<link rel="canonical" href="https://zh1014.github.io/post/2018/10/go%E7%9A%84interface%E7%AC%94%E8%AE%B0/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -49,25 +49,25 @@
 
 
 
-<meta property="og:title" content="SHA 1与SHA 2" />
-<meta property="og:description" content="什么是哈希 我的理解哈希是一种映射，把各种各样的输入（字符串甚至文件）映射成一串尽可能短的字符串。 哈希的特点： 不可逆 不同输入哈希的结果唯一（不" />
+<meta property="og:title" content="Go的interface{}笔记" />
+<meta property="og:description" content="interface{}组成 interface{}由两部分组成：动态类型&#43;实际值。 func main() { var sp *string var i interface{} i = sp println(sp == nil) println(i == nil) // 类型不为空，为*str" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zh1014.github.io/post/2018/10/sha-1%E4%B8%8Esha-2/" /><meta property="article:published_time" content="2018-10-28T16:58:39&#43;08:00"/>
-<meta property="article:modified_time" content="2018-10-28T16:58:39&#43;08:00"/>
-<meta itemprop="name" content="SHA 1与SHA 2">
-<meta itemprop="description" content="什么是哈希 我的理解哈希是一种映射，把各种各样的输入（字符串甚至文件）映射成一串尽可能短的字符串。 哈希的特点： 不可逆 不同输入哈希的结果唯一（不">
+<meta property="og:url" content="https://zh1014.github.io/post/2018/10/go%E7%9A%84interface%E7%AC%94%E8%AE%B0/" /><meta property="article:published_time" content="2018-10-29T19:19:19&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-29T19:19:19&#43;08:00"/>
+<meta itemprop="name" content="Go的interface{}笔记">
+<meta itemprop="description" content="interface{}组成 interface{}由两部分组成：动态类型&#43;实际值。 func main() { var sp *string var i interface{} i = sp println(sp == nil) println(i == nil) // 类型不为空，为*str">
 
 
-<meta itemprop="datePublished" content="2018-10-28T16:58:39&#43;08:00" />
-<meta itemprop="dateModified" content="2018-10-28T16:58:39&#43;08:00" />
-<meta itemprop="wordCount" content="826">
+<meta itemprop="datePublished" content="2018-10-29T19:19:19&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-29T19:19:19&#43;08:00" />
+<meta itemprop="wordCount" content="356">
 
 
 
-<meta itemprop="keywords" content="hash," />
+<meta itemprop="keywords" content="go," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="SHA 1与SHA 2"/>
-<meta name="twitter:description" content="什么是哈希 我的理解哈希是一种映射，把各种各样的输入（字符串甚至文件）映射成一串尽可能短的字符串。 哈希的特点： 不可逆 不同输入哈希的结果唯一（不"/>
+<meta name="twitter:title" content="Go的interface{}笔记"/>
+<meta name="twitter:description" content="interface{}组成 interface{}由两部分组成：动态类型&#43;实际值。 func main() { var sp *string var i interface{} i = sp println(sp == nil) println(i == nil) // 类型不为空，为*str"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -130,13 +130,13 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">SHA 1与SHA 2</h1>
+      <h1 class="post-title">Go的interface{}笔记</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2018-10-28 </span>
+        <span class="post-time"> 2018-10-29 </span>
         <div class="post-category">
             
-              <a href="/categories/%E5%B7%A5%E5%85%B7/"> 工具 </a>
+              <a href="/categories/go/"> go </a>
             
           </div>
         
@@ -152,9 +152,14 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#什么是哈希"><strong>什么是哈希</strong></a></li>
-<li><a href="#数字证书"><strong>数字证书</strong></a></li>
-<li><a href="#sha-1-与sha-2"><strong>SHA-1 与SHA-2</strong></a></li>
+<li><a href="#interface-组成"><strong>interface{}组成</strong></a>
+<ul>
+<li>
+<ul>
+<li><a href="#例子"><strong>例子</strong>:</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#嵌套interface"><strong>嵌套interface{}</strong></a></li>
 </ul>
 </nav>
   </div>
@@ -167,45 +172,104 @@
     <div class="post-content">
       
 
-<h1 id="什么是哈希"><strong>什么是哈希</strong></h1>
+<h1 id="interface-组成"><strong>interface{}组成</strong></h1>
 
-<p>我的理解哈希是一种映射，把各种各样的输入（字符串甚至文件）映射成一串尽可能短的字符串。</p>
+<p>interface{}由两部分组成：动态类型+实际值。</p>
 
-<p>哈希的<code>特点</code>：</p>
+<pre><code class="language-go">func main() {
+	var sp *string
+	var i interface{}
+	i = sp
+	println(sp == nil)
+	println(i == nil) // 类型不为空，为*string
+	println(i == (*string)(nil))
+	println(i)
+}
 
-<ul>
-<li>不可逆</li>
-<li>不同输入哈希的结果唯一（不同输入得到相同输出就叫哈希冲突）</li>
-<li>输入哪怕只有那么1bit的差距，哈希的结果区别非常大</li>
-</ul>
+输出：
+true
+false
+true
+(0x1052a80,0x0)
+</code></pre>
 
-<p>由第三条可以推知哈希可以用来检查文件是否一致以及检查文件是否被修改：</p>
+<blockquote>
+<p>Interface values are comparable. Two interface values are equal if they have identical dynamic types and equal dynamic values or if both have value nil.</p>
+</blockquote>
 
-<p>先把文件哈希一遍，得到一个字符串（一般比文件短很多），比较字符串是否一致。而不是检查整个文件是否一致</p>
+<p>只有与interface{}的动态类型及实际值均相同时，才与这个interface{}相等。</p>
 
-<h1 id="数字证书"><strong>数字证书</strong></h1>
+<p><a href="https://blog.golang.org/laws-of-reflection#TOC_3.">The representation of an interface</a></p>
 
-<p>ssl/tls协议是一种用于在两台电脑之间安全传送数据的协议，因为它同时能够加密与认证。</p>
+<p><a href="https://stackoverflow.com/questions/29138591/hiding-nil-values-understanding-why-golang-fails-here/29138676#29138676">stackoverflow的讨论</a></p>
 
-<p>ssl/tls通过非对称加密的方式使它的连接安全。即有两个密钥存在（又称密钥对），一个叫公钥，一个叫私钥。
-公钥传播给别人，让别人使用公钥来加密。然后再用对应的私钥来解。（就是这么神奇，能用一个东西加密，却需要另一个东西解密。想通过公钥推出私钥是几乎不可能的）
-但是，这就安全了吗？ 还不够。还差你用来加密的公钥确定是对方的。如果互联网中间有那么一个中间人，把正确的公钥替换成他的公钥，当你加密的数据发过来他就能用自己的私钥解密。所以问题变成了公钥是不是你想要的公钥，怎么认证呢？</p>
+<h3 id="例子"><strong>例子</strong>:</h3>
 
-<p>所以就有了证书。让权威证书机构为安全的网站签发证书，让浏览器只认权威机构的证书，问题得以解决。浏览器本身记录着权威证书机构的公钥，保证权威机构不会是冒充的。</p>
+<pre><code class="language-go">package main
 
-<p>当网站的证书传过来，浏览器首先看签发证书的是不是权威机构，是的话用浏览器本身有的机构的公钥再加密这个证书传给机构检查证书是真的吗，被改过没。检查之后返回结果浏览器才知道该不该继续访问这个网站。</p>
+import &quot;fmt&quot;
 
-<p>哈希的作用：检查证书是否被改过。  （我感觉证书就像jwt）</p>
+type Stringer interface {
+	String() string
+}
 
-<h1 id="sha-1-与sha-2"><strong>SHA-1 与SHA-2</strong></h1>
+type String struct {
+	data string
+}
 
-<p>sha-1与sha-2是sha算法的两个版本，sha-2是sha-1的继承者。sha-256 与sha-2是一个东西。SHA-224,SHA-384,SHA-512等也属于sha-2，不过是可选的位数。</p>
+func main() {
+	fmt.Println(CheckString(GetString()))
+}
 
-<p>sha-1已经不再安全。sha-2至少5年内都是安全的</p>
+func (s *String) String() string {
+	return s.data
+}
 
-<p><a href="https://www.thesslstore.com/blog/difference-sha-1-sha-2-sha-256-hash-algorithms/">原文</a></p>
+func GetString() *String {return nil}
 
-<p><a href="http://commandlinefanatic.com/cgi-bin/showarticle.cgi?article=art012">证书怎样工作的</a></p>
+func CheckString(s Stringer) bool {
+	println(interface{}(s))
+	println(s)
+	return s == nil
+}
+
+输出:
+(0x10a42a0,0x0)
+(0x10d08a0,0x0)
+false
+</code></pre>
+
+<h1 id="嵌套interface"><strong>嵌套interface{}</strong></h1>
+
+<p>下面这个能通过编译，说明嵌入的匿名结构体的方法相当于外层结构体的方法。嵌入的匿名结构体实现的接口也被外层结构体实现。</p>
+
+<p>仅当内层结构体匿名才这样。</p>
+
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+type Aer interface {
+	Af()
+}
+
+type A struct {}
+
+type B struct {
+	A
+	Name string
+}
+
+
+func (A)Af(){}
+
+func main(){
+	var b B
+	var aer Aer
+	aer = b
+	fmt.Println(aer)
+}
+</code></pre>
 
     </div>
 
@@ -217,7 +281,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-10-28</span>
+    <span class="item-content">2018-10-29</span>
   </p>
   
   
@@ -229,21 +293,16 @@
     <footer class="post-footer">
       <div class="post-tags">
           
-          <a href="/tags/hash/">hash</a>
+          <a href="/tags/go/">go</a>
           
         </div>
 
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/2018/10/go%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E4%B8%8E.type%E7%9A%84%E5%8C%BA%E5%88%AB/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Go类型断言与.(type)的区别</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
         
-          <a class="next" href="/post/2018/10/go%E4%BD%BF%E7%94%A8form-data%E6%A0%BC%E5%BC%8F%E6%8E%A5%E6%95%B0%E6%8D%AE/">
-            <span class="next-text nav-default">Go使用form Data格式接数据</span>
+          <a class="next" href="/post/2018/10/go%E4%B8%AD%E7%9A%84%E5%8F%8D%E5%BC%95%E5%8F%B7%E5%8D%95%E5%BC%95%E5%8F%B7%E4%B8%8E%E5%8F%8C%E5%BC%95%E5%8F%B7/">
+            <span class="next-text nav-default">Go中的反引号、单引号与双引号</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
