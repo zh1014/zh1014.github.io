@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Git on 张豪blog</title>
+    <title>git on 张豪blog</title>
     <link>https://zh1014.github.io/tags/git/</link>
-    <description>Recent content in Git on 张豪blog</description>
+    <description>Recent content in git on 张豪blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 28 Aug 2018 19:33:59 +0800</lastBuildDate>

@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Go on 张豪blog</title>
+    <title>go on 张豪blog</title>
     <link>https://zh1014.github.io/tags/go/</link>
-    <description>Recent content in Go on 张豪blog</description>
+    <description>Recent content in go on 张豪blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 30 Oct 2018 00:00:36 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 28 Mar 2019 18:07:13 +0800</lastBuildDate>
     
 	<atom:link href="https://zh1014.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>go出现compile: version does not match go tool version</title>
+      <link>https://zh1014.github.io/post/2019/3/go%E5%87%BA%E7%8E%B0compile-version-does-not-match-go-tool-version-/</link>
+      <pubDate>Thu, 28 Mar 2019 18:07:13 +0800</pubDate>
+      
+      <guid>https://zh1014.github.io/post/2019/3/go%E5%87%BA%E7%8E%B0compile-version-does-not-match-go-tool-version-/</guid>
+      <description>报错： compile: version &amp;ldquo;&amp;rdquo; does not match go tool version &amp;ldquo;&amp;rdquo; 出现在用brew升级了go，没有修改GOROOT。 例如1.11.2升级为1.11.4，GOROOT仍然为/usr/</description>
+    </item>
     
     <item>
       <title>Go的database/sql包使用笔记</title>

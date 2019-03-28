@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>工具 · 张豪blog</title>
+  <title>go出现compile: version does not match go tool version - 张豪blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,8 @@
 
 
 <meta name="author" content="ahow" />
-  <meta name="description" content="zhanghao&#39;s blog" />
+  <meta name="description" content="报错： compile: version &amp;ldquo;&amp;rdquo; does not match go tool version &amp;ldquo;&amp;rdquo; 出现在用brew升级了go，没有修改GOROOT。 例如1.11.2升级为1.11.4，GOROOT仍然为/usr/" />
+
   <meta name="keywords" content="Hugo, theme, even" />
 
 
@@ -28,9 +29,7 @@
 <meta name="generator" content="Hugo 0.53" />
 
 
-<link rel="canonical" href="https://zh1014.github.io/categories/%E5%B7%A5%E5%85%B7/" />
-<link href="https://zh1014.github.io/categories/%E5%B7%A5%E5%85%B7/index.xml" rel="alternate" type="application/rss+xml" title="张豪blog" />
-  <link href="https://zh1014.github.io/categories/%E5%B7%A5%E5%85%B7/index.xml" rel="feed" type="application/rss+xml" title="张豪blog" />
+<link rel="canonical" href="https://zh1014.github.io/post/2019/3/go%E5%87%BA%E7%8E%B0compile-version-does-not-match-go-tool-version-/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -50,18 +49,26 @@
 
 
 
-<meta property="og:title" content="工具" />
-<meta property="og:description" content="zhanghao&#39;s blog" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zh1014.github.io/categories/%E5%B7%A5%E5%85%B7/" />
-<meta property="og:updated_time" content="2018-10-28T16:58:39&#43;08:00"/>
+<meta property="og:title" content="go出现compile: version does not match go tool version" />
+<meta property="og:description" content="报错： compile: version &ldquo;&rdquo; does not match go tool version &ldquo;&rdquo; 出现在用brew升级了go，没有修改GOROOT。 例如1.11.2升级为1.11.4，GOROOT仍然为/usr/" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zh1014.github.io/post/2019/3/go%E5%87%BA%E7%8E%B0compile-version-does-not-match-go-tool-version-/" /><meta property="article:published_time" content="2019-03-28T18:07:13&#43;08:00"/>
+<meta property="article:modified_time" content="2019-03-28T18:07:13&#43;08:00"/>
 
-<meta itemprop="name" content="工具">
-<meta itemprop="description" content="zhanghao&#39;s blog">
+<meta itemprop="name" content="go出现compile: version does not match go tool version">
+<meta itemprop="description" content="报错： compile: version &ldquo;&rdquo; does not match go tool version &ldquo;&rdquo; 出现在用brew升级了go，没有修改GOROOT。 例如1.11.2升级为1.11.4，GOROOT仍然为/usr/">
 
+
+<meta itemprop="datePublished" content="2019-03-28T18:07:13&#43;08:00" />
+<meta itemprop="dateModified" content="2019-03-28T18:07:13&#43;08:00" />
+<meta itemprop="wordCount" content="154">
+
+
+
+<meta itemprop="keywords" content="go," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="工具"/>
-<meta name="twitter:description" content="zhanghao&#39;s blog"/>
+<meta name="twitter:title" content="go出现compile: version does not match go tool version"/>
+<meta name="twitter:description" content="报错： compile: version &ldquo;&rdquo; does not match go tool version &ldquo;&rdquo; 出现在用brew升级了go，没有修改GOROOT。 例如1.11.2升级为1.11.4，GOROOT仍然为/usr/"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -121,49 +128,91 @@
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
-          
-
-<section id="archive" class="archive">
-  
+          <article class="post">
     
-      <div class="archive-title category">
-        <h2 class="archive-name">工具</h2>
+    <header class="post-header">
+      <h1 class="post-title">go出现compile: version does not match go tool version</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-03-28 </span>
+        <div class="post-category">
+            
+              <a href="/categories/go/"> go </a>
+            
+          </div>
+        
+        
       </div>
+    </header>
+
     
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
   
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
 
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-10-28
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/2018/10/sha-1%E4%B8%8Esha-2/" class="archive-post-link">
-          SHA 1与SHA 2
-        </a>
-      </span>
+    
+    
+
+    
+    <div class="post-content">
+      <p>报错：
+compile: version &ldquo;&rdquo; does not match go tool version &ldquo;&rdquo;</p>
+
+<p>出现在用brew升级了go，没有修改GOROOT。
+例如1.11.2升级为1.11.4，GOROOT仍然为/usr/local/Cellar/go/1.11.2/libexec。需要改成/usr/local/Cellar/go/1.11.4/libexec</p>
+
+<pre><code class="language-shell">vim ~/.bash_profile # MAC
+[修改GOROOT]
+</code></pre>
+
     </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-08-28
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/2018/08/git%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="archive-post-link">
-          Git阅读笔记
-        </a>
-      </span>
-    </div>
-  
-</section>
 
-<nav class="pagination">
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">ahow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-03-28</span>
+  </p>
   
   
-</nav>
+</div>
 
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/go/">go</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/2018/10/go%E7%9A%84sql%E5%8C%85%E4%BD%BF%E7%94%A8/">
+            <span class="next-text nav-default">Go的database/sql包使用笔记</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
         </div>
         
+  
+
+  
 
       </div>
     </main>

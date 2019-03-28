@@ -9,11 +9,12 @@ categories: ["go"]
 # **连接**
 sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unknown database）
 # **检索结果集**
-检索结果的常用操作：
-1. 执行返回rows的查询（query）
-2. 准备（prepare）以得到一个statement来重复地使用，多次地执行它，最后销毁它。
-3. 免去准备（prepare）步骤，执行一个一次性的语句。
-4. 执行一个返回单排（single row）的查询。
+检索结果的`常用操作`：
+
+- 执行返回rows的查询（query）
+- 准备（prepare）以得到一个statement来重复地使用，多次地执行它，最后销毁它。
+- 免去准备（prepare）步骤，执行一个一次性的语句。
+- 执行一个返回单排（single row）的查询。
 
 go中的database/sql的函数命名是有意义的。名字含query的函数是用来查询的，即使结果为空，也会返回rows。不返回rows的语句应该使用Exec()。
 
@@ -121,7 +122,7 @@ for rows.Next() {
 	// If `other_field` was NULL, `otherField` is now an empty string. This works with other data types as well.
 }
 ```
-COALESCE()会返回第一个不为空的参数，这样使得当other_field为空时，返回空字符串。
+COALESCE()会返回第一个不为空的参数，这样使得当other_field为空时，返回空字符串。大多数数据库都有这个功能。
 
 # **RawBytes**
 当不知道列的个数和或者类型的时候，用sql.RawBytes
