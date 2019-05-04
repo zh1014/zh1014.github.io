@@ -61,7 +61,7 @@
 
 <meta itemprop="datePublished" content="2018-08-28T19:33:59&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-28T19:33:59&#43;08:00" />
-<meta itemprop="wordCount" content="709">
+<meta itemprop="wordCount" content="713">
 
 
 
@@ -225,42 +225,45 @@ $ ls -a
 
 <p><img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/areas.png" alt="img" title="areas" />
 <code>untracked</code>[未跟踪]:
-下面三种都是<code>tracked</code>状态。文件刚被创建时就是untracked状态。此时文件内容发生改变也不会被git察觉到。
-<code>staged</code>[已暂存]:
-要commit的文件需要先全部加到staged，再一次性commit，生成一个版本。
-<code>committed</code>[已提交]:（就是unmodified）
-已经安全的保存在了本地仓库中
-<code>modified</code>[已修改]:
+下面三种都是<code>tracked</code>状态。文件刚被创建时就是untracked状态。此时文件内容发生改变也不会被git察觉到。</p>
+
+<p><code>staged</code>[已暂存]:
+要commit的文件需要先全部加到staged，再一次性commit，生成一个版本。</p>
+
+<p><code>committed</code>[已提交]:（就是unmodified）
+已经安全的保存在了本地仓库中</p>
+
+<p><code>modified</code>[已修改]:
 文件修改了，还没有保存到本地仓库中。删除（deleted）也算是一种修改。</p>
 
 <h2 id="基本命令">基本命令</h2>
 
 <p><img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/command.jpg" alt="img" title="command" /></p>
 
-<p><code>git add</code>
+<p><code>git add</code>:
 添加到staged。还能用于合并时把有冲突的文件标记为已解决状态等</p>
 
-<p><code>git status</code>
+<p><code>git status</code>:
 查看modified、staged、untracked状态的文件有哪些</p>
 
-<p><code>删除</code></p>
+<p><code>删除</code>:</p>
 
 <pre><code class="language-shell">$ git rm &lt;file&gt; # equal to rm &lt;file&gt; &amp; git add &lt;file&gt;
 </code></pre>
 
 <p>当文件是修改过然后存到staged，还需要加-f选项</p>
 
-<p><code>tracked-&gt;untracked</code></p>
+<p><code>tracked-&gt;untracked</code>:</p>
 
 <pre><code class="language-shell">$ git rm --cached &lt;file&gt;
 </code></pre>
 
-<p><code>撤销</code></p>
+<p><code>撤销</code>:</p>
 
 <pre><code class="language-shell">$ git reset
 </code></pre>
 
-<p><code>撤销修改(modified-&gt;committed)</code></p>
+<p><code>撤销修改(modified-&gt;committed)</code>:</p>
 
 <pre><code class="language-shell">$ git checkout -- &lt;file&gt;
 
@@ -269,7 +272,7 @@ $ git reset -- &lt;file&gt;
 $ git checkout -- &lt;file&gt;
 </code></pre>
 
-<p><code>回溯到以前某个版本</code>
+<p><code>回溯到以前某个版本</code>:
 此操作会丢失当前的进度</p>
 
 <pre><code class="language-shell">$ git reset --hard &lt;commit-hash-value&gt;
