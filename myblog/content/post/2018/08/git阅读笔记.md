@@ -46,7 +46,7 @@ $ git clone https://github.com/xxx/xxx.git
 文件修改了，还没有保存到本地仓库中。删除（deleted）也算是一种修改。
 
 ## 基本命令
-![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/command.png "command")
+![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/command.jpg "command")
 
 `git add`
 添加到staged。还能用于合并时把有冲突的文件标记为已解决状态等
