@@ -29,7 +29,7 @@
 <meta name="generator" content="Hugo 0.53" />
 
 
-<link rel="canonical" href="https://zh1014.github.io/post/2018/08/git%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" />
+<link rel="canonical" href="https://zh1014.github.io/post/2018/08/git%E7%AC%94%E8%AE%B0/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -52,7 +52,7 @@
 <meta property="og:title" content="Git笔记" />
 <meta property="og:description" content="版本控制系统 作用： 使项目回溯到过去的某个版本 查看每个版本相比之前的改动，找到问题出在哪儿 发展： 最开始的版本控制系统是单机的 接下来人们又遇到一" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zh1014.github.io/post/2018/08/git%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" /><meta property="article:published_time" content="2018-08-28T19:33:59&#43;08:00"/>
+<meta property="og:url" content="https://zh1014.github.io/post/2018/08/git%E7%AC%94%E8%AE%B0/" /><meta property="article:published_time" content="2018-08-28T19:33:59&#43;08:00"/>
 <meta property="article:modified_time" content="2018-08-28T19:33:59&#43;08:00"/>
 
 <meta itemprop="name" content="Git笔记">
@@ -61,7 +61,7 @@
 
 <meta itemprop="datePublished" content="2018-08-28T19:33:59&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-28T19:33:59&#43;08:00" />
-<meta itemprop="wordCount" content="711">
+<meta itemprop="wordCount" content="709">
 
 
 
@@ -190,29 +190,35 @@
 
 <h4 id="发展">发展：</h4>
 
-<p>最开始的版本控制系统是单机的
-<img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/local.png" alt="img" title="local" />
-接下来人们又遇到一个问题，如何让在不同系统上的开发者协同工作？ 于是，集中化的版本控制系统（Centralized Version Control Systems，简称 CVCS）应运而生。
-<img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/centralized.png" alt="img" title="centralized" />
-为了解决单点故障的问题，又有了分布式版本控制系统。即使远端仓库丢失了，拥有本地仓库的人就可以将它恢复。
-<img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/distributed.png" alt="img" title="distributed" /></p>
+<p>最开始的版本控制系统是单机的</p>
+
+<p><img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/local.png" alt="img" title="local" /></p>
+
+<p>接下来人们又遇到一个问题，如何让在不同系统上的开发者协同工作？ 于是，集中化的版本控制系统（Centralized Version Control Systems，简称 CVCS）应运而生。</p>
+
+<p><img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/centralized.png" alt="img" title="centralized" /></p>
+
+<p>为了解决单点故障的问题，又有了分布式版本控制系统。即使远端仓库丢失了，拥有本地仓库的人就可以将它恢复。</p>
+
+<p><img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/distributed.png" alt="img" title="distributed" /></p>
 
 <p>Git就是一个分布式版本控制系统！</p>
 
 <h2 id="开始的方式有两种">开始的方式有两种：</h2>
 
 <ol>
-<li>在一个目录下初始化一个本地仓库：
-<code>shell
-$ git init 
+<li><p>在一个目录下初始化一个本地仓库：</p>
+
+<pre><code class="language-shell">$ git init 
 Initialized empty Git repository in /.git/
 $ ls -a
 .	..	.git # 本地仓库就在.git下
-</code></li>
-<li>更常用的，直接克隆远端仓库到本地：
-<code>shell
-$ git clone https://github.com/xxx/xxx.git
-</code></li>
+</code></pre></li>
+
+<li><p>更常用的，直接克隆远端仓库到本地：</p>
+
+<pre><code class="language-shell">$ git clone https://github.com/xxx/xxx.git
+</code></pre></li>
 </ol>
 
 <h2 id="文件4种状态">文件4种状态：</h2>

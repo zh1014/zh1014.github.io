@@ -13,10 +13,15 @@ categories: ["工具"]
 
 #### 发展：
 最开始的版本控制系统是单机的
+
 ![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/local.png "local")
+
 接下来人们又遇到一个问题，如何让在不同系统上的开发者协同工作？ 于是，集中化的版本控制系统（Centralized Version Control Systems，简称 CVCS）应运而生。
+
 ![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/centralized.png "centralized")
+
 为了解决单点故障的问题，又有了分布式版本控制系统。即使远端仓库丢失了，拥有本地仓库的人就可以将它恢复。
+
 ![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/distributed.png "distributed")
 
 Git就是一个分布式版本控制系统！
@@ -29,6 +34,7 @@ Initialized empty Git repository in /.git/
 $ ls -a
 .	..	.git # 本地仓库就在.git下
 ```
+
 2. 更常用的，直接克隆远端仓库到本地：
 ```shell
 $ git clone https://github.com/xxx/xxx.git
