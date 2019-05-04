@@ -1,45 +1,86 @@
 ---
-title: "Git阅读笔记"
+title: "Git笔记"
 date: 2018-08-28T19:33:59+08:00
 draft: false
 tags: ["git"]
 categories: ["工具"]
 ---
 
-# **状态**
-git本地状态图:
-![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/git本地状态图.png "git本地状态图")
-实际不止staged可以git rm ，为了不让图显得太乱而省略。
+## 版本控制系统
+#### 作用：
+- 使项目回溯到过去的某个版本
+- 查看每个版本相比之前的改动，找到问题出在哪儿
 
-生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png
+#### 发展：
+最开始的版本控制系统是单机的
+![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/local.png "local")
+接下来人们又遇到一个问题，如何让在不同系统上的开发者协同工作？ 于是，集中化的版本控制系统（Centralized Version Control Systems，简称 CVCS）应运而生。
+![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/centralized.png "centralized")
+为了解决单点故障的问题，又有了分布式版本控制系统。即使远端仓库丢失了，拥有本地仓库的人就可以将它恢复。
+![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/distributed.png "distributed")
 
-# **个人笔记（散乱）**
+Git就是一个分布式版本控制系统！
+
+## 开始的方式有两种：
+1. 在一个目录下初始化一个本地仓库：
+```shell
+$ git init 
+Initialized empty Git repository in /.git/
+$ ls -a
+.	..	.git # 本地仓库就在.git下
+```
+2. 更常用的，直接克隆远端仓库到本地：
+```shell
+$ git clone https://github.com/xxx/xxx.git
+```
+
+## 文件4种状态：
+![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/command.png "command")
+`untracked`[未跟踪]:
+下面三种都是`tracked`状态。文件刚被创建时就是untracked状态。此时文件内容发生改变也不会被git察觉到。
+`staged`[已暂存]:
+要commit的文件需要先全部加到staged，再一次性commit，生成一个版本。
+`committed`[已提交]:（就是unmodified）
+已经安全的保存在了本地仓库中
+`modified`[已修改]:
+文件修改了，还没有保存到本地仓库中。删除（deleted）也算是一种修改。
+
+## 基本命令
+![cb03e2cfa80da1ec8b767c4230a9d245.jpeg](evernotecid://38A90FAA-62B0-4931-83BD-E4CA59841F47/appyinxiangcom/16104284/ENResource/p82)
+
 `git add`
-
-添加内容到下一次提交中（我想就是指加到staged中）：可以是untrack->staged 或 modified -> staged。另外，还能用于合并时把有冲突的文件标记为已解决状态等
+添加到staged。还能用于合并时把有冲突的文件标记为已解决状态等
 
 `git status`
+查看modified、staged、untracked状态的文件有哪些
 
-Changes to be committed：已暂存状态
+`删除`
+```shell
+$ git rm <file> # equal to rm <file> & git add <file>
+```
+当文件是修改过然后存到staged，还需要加-f选项
 
-Changes not staged for commit ：已跟踪文件的内容发生了变化
+`tracked->untracked`
+```shell
+$ git rm --cached <file>
+```
 
-`git rm`
+`撤销`
+```shell
+$ git reset
+```
 
-（不在暂存区：）首先我们知道发生任何modify都应该用git add来告诉暂存区。如果直接rm已跟踪文件，同样是一个modify，不同的是这个情况下modify却不能用git add来告诉git发生了什么变化，于是有了git rm。git rm 才是删除的标准操作，而不是rm；但用了rm，可以再用一次git rm  进行纠正
+`撤销修改(modified->committed)`
+```shell
+$ git checkout -- <file>
 
-（暂存区：）如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f
+# 撤销删除
+$ git reset -- <file>
+$ git checkout -- <file>
+```
 
-# **分支**
-- git branch <分支>      创建分支
-- git branch -d <分支>   删除分支
-
-相关命令：
-
-git checkout <分支>   切换到此分支，-b则创建并切换过去
-
-git checkout -b <分支>  等于组合： git branch <分支> + git checkout <分支>
-
-git merge <分支>  合并此分支与当前分支
-
-git branch 列出所有分支列表，-v可列出最后一次提交，--merged 与--no-merged过滤这个列表中已经合并或尚未合并到当前分支的分支
+`回溯到以前某个版本`
+此操作会丢失当前的进度
+```shell
+$ git reset --hard <commit-hash-value>
+```

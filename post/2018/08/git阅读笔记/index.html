@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Git阅读笔记 - 张豪blog</title>
+  <title>Git笔记 - 张豪blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="ahow" />
-  <meta name="description" content="状态 git本地状态图: 实际不止staged可以git rm ，为了不让图显得太乱而省略。 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png 个人笔记（散乱） git add 添加内容到下一次提交中（我想" />
+  <meta name="description" content="版本控制系统 作用： 使项目回溯到过去的某个版本 查看每个版本相比之前的改动，找到问题出在哪儿 发展： 最开始的版本控制系统是单机的 接下来人们又遇到一" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -49,26 +49,26 @@
 
 
 
-<meta property="og:title" content="Git阅读笔记" />
-<meta property="og:description" content="状态 git本地状态图: 实际不止staged可以git rm ，为了不让图显得太乱而省略。 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png 个人笔记（散乱） git add 添加内容到下一次提交中（我想" />
+<meta property="og:title" content="Git笔记" />
+<meta property="og:description" content="版本控制系统 作用： 使项目回溯到过去的某个版本 查看每个版本相比之前的改动，找到问题出在哪儿 发展： 最开始的版本控制系统是单机的 接下来人们又遇到一" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zh1014.github.io/post/2018/08/git%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" /><meta property="article:published_time" content="2018-08-28T19:33:59&#43;08:00"/>
 <meta property="article:modified_time" content="2018-08-28T19:33:59&#43;08:00"/>
 
-<meta itemprop="name" content="Git阅读笔记">
-<meta itemprop="description" content="状态 git本地状态图: 实际不止staged可以git rm ，为了不让图显得太乱而省略。 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png 个人笔记（散乱） git add 添加内容到下一次提交中（我想">
+<meta itemprop="name" content="Git笔记">
+<meta itemprop="description" content="版本控制系统 作用： 使项目回溯到过去的某个版本 查看每个版本相比之前的改动，找到问题出在哪儿 发展： 最开始的版本控制系统是单机的 接下来人们又遇到一">
 
 
 <meta itemprop="datePublished" content="2018-08-28T19:33:59&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-28T19:33:59&#43;08:00" />
-<meta itemprop="wordCount" content="587">
+<meta itemprop="wordCount" content="711">
 
 
 
 <meta itemprop="keywords" content="git," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Git阅读笔记"/>
-<meta name="twitter:description" content="状态 git本地状态图: 实际不止staged可以git rm ，为了不让图显得太乱而省略。 生命周期 https://git-scm.com/book/en/v2/images/lifecycle.png 个人笔记（散乱） git add 添加内容到下一次提交中（我想"/>
+<meta name="twitter:title" content="Git笔记"/>
+<meta name="twitter:description" content="版本控制系统 作用： 使项目回溯到过去的某个版本 查看每个版本相比之前的改动，找到问题出在哪儿 发展： 最开始的版本控制系统是单机的 接下来人们又遇到一"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -131,7 +131,7 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Git阅读笔记</h1>
+      <h1 class="post-title">Git笔记</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2018-08-28 </span>
@@ -153,9 +153,20 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#状态"><strong>状态</strong></a></li>
-<li><a href="#个人笔记-散乱"><strong>个人笔记（散乱）</strong></a></li>
-<li><a href="#分支"><strong>分支</strong></a></li>
+<li>
+<ul>
+<li><a href="#版本控制系统">版本控制系统</a>
+<ul>
+<li>
+<ul>
+<li><a href="#作用">作用：</a></li>
+<li><a href="#发展">发展：</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#开始的方式有两种">开始的方式有两种：</a></li>
+<li><a href="#文件4种状态">文件4种状态：</a></li>
+<li><a href="#基本命令">基本命令</a></li>
+</ul></li>
 </ul>
 </nav>
   </div>
@@ -168,48 +179,95 @@
     <div class="post-content">
       
 
-<h1 id="状态"><strong>状态</strong></h1>
+<h2 id="版本控制系统">版本控制系统</h2>
 
-<p>git本地状态图:
-<img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/git本地状态图.png" alt="img" title="git本地状态图" />
-实际不止staged可以git rm ，为了不让图显得太乱而省略。</p>
-
-<p>生命周期 <a href="https://git-scm.com/book/en/v2/images/lifecycle.png">https://git-scm.com/book/en/v2/images/lifecycle.png</a></p>
-
-<h1 id="个人笔记-散乱"><strong>个人笔记（散乱）</strong></h1>
-
-<p><code>git add</code></p>
-
-<p>添加内容到下一次提交中（我想就是指加到staged中）：可以是untrack-&gt;staged 或 modified -&gt; staged。另外，还能用于合并时把有冲突的文件标记为已解决状态等</p>
-
-<p><code>git status</code></p>
-
-<p>Changes to be committed：已暂存状态</p>
-
-<p>Changes not staged for commit ：已跟踪文件的内容发生了变化</p>
-
-<p><code>git rm</code></p>
-
-<p>（不在暂存区：）首先我们知道发生任何modify都应该用git add来告诉暂存区。如果直接rm已跟踪文件，同样是一个modify，不同的是这个情况下modify却不能用git add来告诉git发生了什么变化，于是有了git rm。git rm 才是删除的标准操作，而不是rm；但用了rm，可以再用一次git rm  进行纠正</p>
-
-<p>（暂存区：）如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f</p>
-
-<h1 id="分支"><strong>分支</strong></h1>
+<h4 id="作用">作用：</h4>
 
 <ul>
-<li>git branch &lt;分支&gt;      创建分支</li>
-<li>git branch -d &lt;分支&gt;   删除分支</li>
+<li>使项目回溯到过去的某个版本</li>
+<li>查看每个版本相比之前的改动，找到问题出在哪儿</li>
 </ul>
 
-<p>相关命令：</p>
+<h4 id="发展">发展：</h4>
 
-<p>git checkout &lt;分支&gt;   切换到此分支，-b则创建并切换过去</p>
+<p>最开始的版本控制系统是单机的
+<img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/local.png" alt="img" title="local" />
+接下来人们又遇到一个问题，如何让在不同系统上的开发者协同工作？ 于是，集中化的版本控制系统（Centralized Version Control Systems，简称 CVCS）应运而生。
+<img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/centralized.png" alt="img" title="centralized" />
+为了解决单点故障的问题，又有了分布式版本控制系统。即使远端仓库丢失了，拥有本地仓库的人就可以将它恢复。
+<img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/distributed.png" alt="img" title="distributed" /></p>
 
-<p>git checkout -b &lt;分支&gt;  等于组合： git branch &lt;分支&gt; + git checkout &lt;分支&gt;</p>
+<p>Git就是一个分布式版本控制系统！</p>
 
-<p>git merge &lt;分支&gt;  合并此分支与当前分支</p>
+<h2 id="开始的方式有两种">开始的方式有两种：</h2>
 
-<p>git branch 列出所有分支列表，-v可列出最后一次提交，&ndash;merged 与&ndash;no-merged过滤这个列表中已经合并或尚未合并到当前分支的分支</p>
+<ol>
+<li>在一个目录下初始化一个本地仓库：
+<code>shell
+$ git init 
+Initialized empty Git repository in /.git/
+$ ls -a
+.	..	.git # 本地仓库就在.git下
+</code></li>
+<li>更常用的，直接克隆远端仓库到本地：
+<code>shell
+$ git clone https://github.com/xxx/xxx.git
+</code></li>
+</ol>
+
+<h2 id="文件4种状态">文件4种状态：</h2>
+
+<p><img src="https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/command.png" alt="img" title="command" />
+<code>untracked</code>[未跟踪]:
+下面三种都是<code>tracked</code>状态。文件刚被创建时就是untracked状态。此时文件内容发生改变也不会被git察觉到。
+<code>staged</code>[已暂存]:
+要commit的文件需要先全部加到staged，再一次性commit，生成一个版本。
+<code>committed</code>[已提交]:（就是unmodified）
+已经安全的保存在了本地仓库中
+<code>modified</code>[已修改]:
+文件修改了，还没有保存到本地仓库中。删除（deleted）也算是一种修改。</p>
+
+<h2 id="基本命令">基本命令</h2>
+
+<p><img src="evernotecid://38A90FAA-62B0-4931-83BD-E4CA59841F47/appyinxiangcom/16104284/ENResource/p82" alt="cb03e2cfa80da1ec8b767c4230a9d245.jpeg" /></p>
+
+<p><code>git add</code>
+添加到staged。还能用于合并时把有冲突的文件标记为已解决状态等</p>
+
+<p><code>git status</code>
+查看modified、staged、untracked状态的文件有哪些</p>
+
+<p><code>删除</code></p>
+
+<pre><code class="language-shell">$ git rm &lt;file&gt; # equal to rm &lt;file&gt; &amp; git add &lt;file&gt;
+</code></pre>
+
+<p>当文件是修改过然后存到staged，还需要加-f选项</p>
+
+<p><code>tracked-&gt;untracked</code></p>
+
+<pre><code class="language-shell">$ git rm --cached &lt;file&gt;
+</code></pre>
+
+<p><code>撤销</code></p>
+
+<pre><code class="language-shell">$ git reset
+</code></pre>
+
+<p><code>撤销修改(modified-&gt;committed)</code></p>
+
+<pre><code class="language-shell">$ git checkout -- &lt;file&gt;
+
+# 撤销删除
+$ git reset -- &lt;file&gt;
+$ git checkout -- &lt;file&gt;
+</code></pre>
+
+<p><code>回溯到以前某个版本</code>
+此操作会丢失当前的进度</p>
+
+<pre><code class="language-shell">$ git reset --hard &lt;commit-hash-value&gt;
+</code></pre>
 
     </div>
 
