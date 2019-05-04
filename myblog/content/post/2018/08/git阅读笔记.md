@@ -35,7 +35,7 @@ $ git clone https://github.com/xxx/xxx.git
 ```
 
 ## 文件4种状态：
-![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/command.png "command")
+![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/areas.png "areas")
 `untracked`[未跟踪]:
 下面三种都是`tracked`状态。文件刚被创建时就是untracked状态。此时文件内容发生改变也不会被git察觉到。
 `staged`[已暂存]:
@@ -46,7 +46,7 @@ $ git clone https://github.com/xxx/xxx.git
 文件修改了，还没有保存到本地仓库中。删除（deleted）也算是一种修改。
 
 ## 基本命令
-![cb03e2cfa80da1ec8b767c4230a9d245.jpeg](evernotecid://38A90FAA-62B0-4931-83BD-E4CA59841F47/appyinxiangcom/16104284/ENResource/p82)
+![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/command.png "command")
 
 `git add`
 添加到staged。还能用于合并时把有冲突的文件标记为已解决状态等
