@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Go使用form Data格式接数据 - 张豪blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ahow" />
+  <meta name="description" content="go使用multipart/form-data接受请求数据遇到的问题 http使用multipart/form-data类型传输数据，需要go" />
+
+  <meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+
+<link rel="canonical" href="https://zh1014.github.io/post/2018/10/go%E4%BD%BF%E7%94%A8form-data%E6%A0%BC%E5%BC%8F%E6%8E%A5%E6%95%B0%E6%8D%AE/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Go使用form Data格式接数据" />
+<meta property="og:description" content="go使用multipart/form-data接受请求数据遇到的问题 http使用multipart/form-data类型传输数据，需要go" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zh1014.github.io/post/2018/10/go%E4%BD%BF%E7%94%A8form-data%E6%A0%BC%E5%BC%8F%E6%8E%A5%E6%95%B0%E6%8D%AE/" /><meta property="article:published_time" content="2018-10-28T15:56:25&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-28T15:56:25&#43;08:00"/>
+
+<meta itemprop="name" content="Go使用form Data格式接数据">
+<meta itemprop="description" content="go使用multipart/form-data接受请求数据遇到的问题 http使用multipart/form-data类型传输数据，需要go">
+
+
+<meta itemprop="datePublished" content="2018-10-28T15:56:25&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-28T15:56:25&#43;08:00" />
+<meta itemprop="wordCount" content="382">
+
+
+
+<meta itemprop="keywords" content="go,web," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go使用form Data格式接数据"/>
+<meta name="twitter:description" content="go使用multipart/form-data接受请求数据遇到的问题 http使用multipart/form-data类型传输数据，需要go"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">ahow</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">ahow</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Go使用form Data格式接数据</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-10-28 </span>
+        <div class="post-category">
+            
+              <a href="/categories/go/"> go </a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <p><code>go使用multipart/form-data接受请求数据遇到的问题</code></p>
+
+<p>http使用multipart/form-data类型传输数据，需要golang使用FormValue()或者PostFormValue()方法来获取。</p>
+
+<p>但是当请求header中设置了Content-Type时会导致获取的数据为空。好像是强制使用了FormFile()来获取。</p>
+
+<p>然后当把请求中的Content-Type去掉，居然还是获取到空值，后来发现是因为我在获取form-data之前执行了request.Header().Get(&ldquo;Content-type&rdquo;)，并正确获取到Content-type。即使传数据的人没有加Content-Type，可能在我这边又把它自动加上了。</p>
+
+<p>所以，请求中不要带Content-Type，后台也不要去获取请求的Content-Type。</p>
+
+<p><a href="https://github.com/golang/go/issues/24041">link</a></p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">ahow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-10-28</span>
+  </p>
+  
+  
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/go/">go</a>
+          
+          <a href="/tags/web/">web</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/2018/10/sha-1%E4%B8%8Esha-2/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">SHA 1与SHA 2</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/post/2018/08/git%E7%AC%94%E8%AE%B0/">
+            <span class="next-text nav-default">Git笔记</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="964701944@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10368009/zhanghao" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zh1014" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/zhang-hao-65-23-68/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zh1014.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2018-8-24 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">ahow</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

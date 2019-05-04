@@ -44,39 +44,42 @@ $ git clone https://github.com/xxx/xxx.git
 ![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/areas.png "areas")
 `untracked`[未跟踪]:
 下面三种都是`tracked`状态。文件刚被创建时就是untracked状态。此时文件内容发生改变也不会被git察觉到。
+
 `staged`[已暂存]:
 要commit的文件需要先全部加到staged，再一次性commit，生成一个版本。
+
 `committed`[已提交]:（就是unmodified）
 已经安全的保存在了本地仓库中
+
 `modified`[已修改]:
 文件修改了，还没有保存到本地仓库中。删除（deleted）也算是一种修改。
 
 ## 基本命令
 ![img](https://raw.githubusercontent.com/zh1014/zh1014.github.io/master/images/2018/08/command.jpg "command")
 
-`git add`
+`git add`:
 添加到staged。还能用于合并时把有冲突的文件标记为已解决状态等
 
-`git status`
+`git status`:
 查看modified、staged、untracked状态的文件有哪些
 
-`删除`
+`删除`:
 ```shell
 $ git rm <file> # equal to rm <file> & git add <file>
 ```
 当文件是修改过然后存到staged，还需要加-f选项
 
-`tracked->untracked`
+`tracked->untracked`:
 ```shell
 $ git rm --cached <file>
 ```
 
-`撤销`
+`撤销`:
 ```shell
 $ git reset
 ```
 
-`撤销修改(modified->committed)`
+`撤销修改(modified->committed)`:
 ```shell
 $ git checkout -- <file>
 
@@ -85,7 +88,7 @@ $ git reset -- <file>
 $ git checkout -- <file>
 ```
 
-`回溯到以前某个版本`
+`回溯到以前某个版本`:
 此操作会丢失当前的进度
 ```shell
 $ git reset --hard <commit-hash-value>
