@@ -1,2 +1,1 @@
 User-agent: *
-Sitemap: https://zh1014.github.io/sitemap.xml
