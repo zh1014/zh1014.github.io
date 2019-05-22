@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Go的database/sql包使用笔记 - 张豪blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zhanghao" /><meta name="description" content="连接 sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unk" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zh1014.github.io/post/2018/10/go%E7%9A%84sql%E5%8C%85%E4%BD%BF%E7%94%A8/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Go的database/sql包使用笔记" />
+<meta property="og:description" content="连接 sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unk" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zh1014.github.io/post/2018/10/go%E7%9A%84sql%E5%8C%85%E4%BD%BF%E7%94%A8/" /><meta property="article:published_time" content="2018-10-30T00:00:36&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-30T00:00:36&#43;08:00"/>
+
+<meta itemprop="name" content="Go的database/sql包使用笔记">
+<meta itemprop="description" content="连接 sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unk">
+
+
+<meta itemprop="datePublished" content="2018-10-30T00:00:36&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-30T00:00:36&#43;08:00" />
+<meta itemprop="wordCount" content="1986">
+
+
+
+<meta itemprop="keywords" content="go,database," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go的database/sql包使用笔记"/>
+<meta name="twitter:description" content="连接 sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unk"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">zh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">zh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Go的database/sql包使用笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-10-30 </span>
+        <div class="post-category">
+            <a href="/categories/go/"> go </a>
+            </div>
+          <span class="more-meta"> 约 1986 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#连接"><strong>连接</strong></a></li>
+<li><a href="#检索结果集"><strong>检索结果集</strong></a></li>
+<li><a href="#异常处理"><strong>异常处理</strong></a></li>
+<li><a href="#对付空值"><strong>对付空值</strong></a></li>
+<li><a href="#rawbytes"><strong>RawBytes</strong></a></li>
+<li><a href="#db-exec"><strong>db.Exec()</strong></a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h1 id="连接"><strong>连接</strong></h1>
+
+<p>sql.Open()连接数据库时，dsn中dbname为空，不会出现错误；dbname为不存在数据库，进行查询时才会panic，（unknown database）</p>
+
+<h1 id="检索结果集"><strong>检索结果集</strong></h1>
+
+<p>检索结果的<code>常用操作</code>：</p>
+
+<ul>
+<li>执行返回rows的查询（query）</li>
+<li>准备（prepare）以得到一个statement来重复地使用，多次地执行它，最后销毁它。</li>
+<li>免去准备（prepare）步骤，执行一个一次性的语句。</li>
+<li>执行一个返回单排（single row）的查询。</li>
+</ul>
+
+<p>go中的database/sql的函数命名是有意义的。名字含query的函数是用来查询的，即使结果为空，也会返回rows。不返回rows的语句应该使用Exec()。</p>
+
+<p><code>遍历：</code></p>
+
+<p>几个容易出错的地方：</p>
+
+<ul>
+<li>rows.Next()循环结束后应该检查错误：err = rows.Err()。循环体中出现错误时你应该知道。</li>
+<li>只要rows处于打开状态，那么该rows的连接就是繁忙状态的，也就不能用于其他查询。意味着该连接在连接池中不可用。使用rows.Next()读完了rows之后，再读的话就会得到一个EOF错误，并且会自动为你调用rows.Close()。但是如果你因为某些原因，中途退出循环，rows没有自动关闭（只有读到错误才会为你自动关闭），那么连接就会一直打开。很容易耗尽资源。</li>
+<li>rows.Close()是无害操作，可以多次调用。关闭之前应该执行err = rows.Err() ，如果没有错误，只调用rows.Close（），以避免运行时出现混乱。</li>
+<li>你应该总是调用defer rows.Close()，尽管你在循环结束后显式调用了rows.Close()。这不是个坏主意。</li>
+<li>如果你在循环内反复的进行查询，那么就不要使用defer了。因为defer的内容要等到函数结束才执行，就会缓慢地堆积在内存。你应该在处理完一个结果集后立即调用rows.Close()，而不是用defer。</li>
+</ul>
+
+<p><code>Scan()的工作方式：</code></p>
+
+<p>在使用Scan的时候，go已经做好了类型转换，你不要重复做了。
+go会尽可能的做类型转换，比如一个int类型或者Time类型的赋值给一个string。但是像nil这样的空无法通过scan()赋值给一个string，这时候就会返回一个err了。</p>
+
+<p><code>Prepare查询：</code></p>
+
+<p>当一个查询语句会用到多次的时候，你最好使用db.Prepare()方法</p>
+
+<p><code>QueryRow()：</code></p>
+
+<p>当你只想获取一行数据的时候用QueryRow是比较方便的，因为这个时候没有Rows需要你去关闭。</p>
+
+<h1 id="异常处理"><strong>异常处理</strong></h1>
+
+<p><code>rows.Next()</code> 需要检查遍历是否正常退出。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">for</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Err</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="c1">// handle the error here
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>rows.Close()</code> 检查rows是否正常关闭，若没有就打个日志吧。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">for</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// ...
+</span><span class="c1"></span>	<span class="k">break</span><span class="p">;</span> <span class="c1">// whoops, rows is not closed! memory leak...
+</span><span class="c1"></span><span class="p">}</span>
+<span class="c1">// do the usual &#34;if err = rows.Err()&#34; [omitted here]...
+</span><span class="c1">// it&#39;s always safe to [re?]close here:
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Close</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="c1">// but what should we do if there&#39;s an error?
+</span><span class="c1"></span>	<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>db.QueryRow()</code> 当没有查到结果进行scan会返回sql.ErrNoRows</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">name</span> <span class="kt">string</span>
+<span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">QueryRow</span><span class="p">(</span><span class="s">&#34;select name from users where id = ?&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">).</span><span class="nf">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">name</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">sql</span><span class="p">.</span><span class="nx">ErrNoRows</span> <span class="p">{</span>
+		<span class="c1">// there were no rows, but otherwise no error occurred
+</span><span class="c1"></span>	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>检查错误类型的时候，driver层可能定义了错误。调用driver层常量来知晓错误类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">driverErr</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">err</span><span class="p">.(</span><span class="o">*</span><span class="nx">mysql</span><span class="p">.</span><span class="nx">MySQLError</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">driverErr</span><span class="p">.</span><span class="nx">Number</span> <span class="o">==</span> <span class="nx">mysqlerr</span><span class="p">.</span><span class="nx">ER_ACCESS_DENIED_ERROR</span> <span class="p">{</span>
+		<span class="c1">// Handle the permission-denied error
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>最后，sql.DB实现了一个connection的管理池，所以当当前连接出现问题，database/sql层会自动换一个连接重试。我们完全感觉不到。</p>
+
+<h1 id="对付空值"><strong>对付空值</strong></h1>
+
+<p>1.最好是避免数据库中的空值，通过设置<code>默认值</code>或者<code>NOT NULL</code>。</p>
+
+<p>2.使用sql包内定义的可为空的类型：<code>sql.NullString</code> <code>sql.NullInt64</code> <code>sql.NullFloat64</code> <code>sql.NullBool</code> 。仅此4种，虽然只有四种，但像int32 uint8 等整型都是可以用NullInt64 ，database/sql层会做转换。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">for</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">s</span> <span class="nx">sql</span><span class="p">.</span><span class="nx">NullString</span>
+	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">s</span><span class="p">)</span>
+	<span class="c1">// check err
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Valid</span> <span class="p">{</span>
+	   <span class="c1">// use s.String
+</span><span class="c1"></span>	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+	   <span class="c1">// NULL value
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>也可以自己定义类型，模仿NullString实现Scanner接口即可。</p>
+
+<p>3.使用<code>COALESCE()</code>函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">Query</span><span class="p">(</span><span class="s">`
+</span><span class="s">	SELECT
+</span><span class="s">		name,
+</span><span class="s">		COALESCE(other_field, &#39;&#39;) as other_field
+</span><span class="s">	WHERE id = ?
+</span><span class="s">`</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">name</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">otherField</span><span class="p">)</span>
+	<span class="c1">// ..
+</span><span class="c1"></span>	<span class="c1">// If `other_field` was NULL, `otherField` is now an empty string. This works with other data types as well.
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>COALESCE()会返回第一个不为空的参数，这样使得当other_field为空时，返回空字符串。大多数数据库都有这个功能。</p>
+
+<h1 id="rawbytes"><strong>RawBytes</strong></h1>
+
+<p>当不知道列的个数和或者类型的时候，用sql.RawBytes</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">cols</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Columns</span><span class="p">()</span> <span class="c1">// Remember to check err afterwards
+</span><span class="c1"></span><span class="nx">vals</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kd">interface</span><span class="p">{},</span> <span class="nb">len</span><span class="p">(</span><span class="nx">cols</span><span class="p">))</span>
+<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">cols</span> <span class="p">{</span>
+	<span class="nx">vals</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">sql</span><span class="p">.</span><span class="nx">RawBytes</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">rows</span><span class="p">.</span><span class="nf">Scan</span><span class="p">(</span><span class="nx">vals</span><span class="o">...</span><span class="p">)</span>
+	<span class="c1">// Now you can check each element of vals for nil-ness,
+</span><span class="c1"></span>	<span class="c1">// and you can use type introspection and type assertions
+</span><span class="c1"></span>	<span class="c1">// to fetch the column into a typed variable.
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="db-exec"><strong>db.Exec()</strong></h1>
+
+<p>db.Exec() 返回一个result 与一个error，当执行DELETE操作的时候，WHERE 条件没有符合的情况下，返回的error为nil，修改的行数为0。.因此在需要的时候我们可以使用result.RowsAffected()查看到修改的行数。</p>
+
+<p>此外，UPDATE的时候，若WHERE条件没有找到或者更新后与之前相同，同样返回的error为nil，修改的行数为0。</p>
+
+<p><a href="http://go-database-sql.org/index.html">原文</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">zhanghao</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-10-30
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/go/">go</a>
+          <a href="/tags/database/">database</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019/3/go%E5%87%BA%E7%8E%B0compile-version-does-not-match-go-tool-version-/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">go出现compile: version does not match go tool version</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2018/10/go%E7%9A%84interface%E7%AC%94%E8%AE%B0/">
+            <span class="next-text nav-default">Go的interface{}笔记</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="zhanghao971014@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10368009/zhanghao" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://github.com/zh1014" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zhang-hao-65-23-68/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://zh1014.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018-8-24 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zhanghao</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
