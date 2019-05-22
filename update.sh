@@ -1,8 +1,8 @@
 #! /bin/sh
 
 # set makes it safer
-set -eux
-set -o pipefail
+# set -eux
+# set -o pipefail
 
 cd ~/go/src/github.com/zh1014/zh1014.github.io/myblog/
 rm -rf ./public
